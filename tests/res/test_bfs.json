@@ -1,0 +1,87 @@
+{
+  "test_bfs_algorithm": [
+    {
+      "title": "one vertex",
+      "adj": [[0]],
+      "start": 0,
+      "expected": [0]
+    },
+    {
+      "title": "one loop",
+      "adj": [[1]],
+      "start": 0,
+      "expected": [0]
+    },
+    {
+      "title": "two loops",
+      "adj": [
+        [0, 1, 0],
+        [1, 0, 1],
+        [0, 1, 0]
+      ],
+      "start": 2,
+      "expected": [2, 1, 0]
+    },
+    {
+      "title": "clique",
+      "adj": [
+        [1, 1, 1, 1],
+        [1, 1, 1, 1],
+        [1, 1, 1, 1],
+        [1, 1, 1, 1]
+      ],
+      "start": 2,
+      "expected": [1, 1, 0, 1]
+    },
+    {
+      "title": "unreachable vertex",
+      "adj": [
+        [0, 0, 1, 0],
+        [1, 0, 1, 0],
+        [0, 0, 0, 1],
+        [1, 0, 0, 0]
+      ],
+      "start": 3,
+      "expected": [1, -1, 2, 0]
+    }
+  ],
+  "test_bfs_input": [
+    {
+      "title": "not square",
+      "adj": [
+        [1, 0],
+        [0, 1],
+        [1, 0]
+      ],
+      "start": 1,
+      "type": 1
+    },
+    {
+      "title": "not bool type",
+      "adj": [
+        [1, 0],
+        [0, 1]
+      ],
+      "start": 1,
+      "type": 0
+    },
+    {
+      "title": "out of range",
+      "adj": [
+        [1, 0],
+        [0, 1]
+      ],
+      "start": 10,
+      "type": 1
+    },
+    {
+      "title": "negative start vertex",
+      "adj": [
+        [1, 0],
+        [0, 1]
+      ],
+      "start": -10,
+      "type": 1
+    }
+  ]
+}

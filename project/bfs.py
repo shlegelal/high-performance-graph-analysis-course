@@ -17,12 +17,10 @@ def bfs(adj: gb.Matrix, start: int) -> list[int]:
     steps[start] = 0
     front[start] = True
     step = 1
-    old_nv = -1
-    while steps.nvals != old_nv:
-        old_nv = steps.nvals
-        front.vxm(adj, out=front)
-        visited_mask = front.eadd(steps.S, gb.BOOL.GT, mask=front.S)
-        steps.assign_scalar(step, mask=visited_mask)
+
+    while front.reduce():
+        front.vxm(adj, out=front, mask=steps.S, desc=gb.descriptor.RC)
+        steps.assign_scalar(step, mask=front)
         step += 1
 
     return [steps.get(i, default=-1) for i in range(steps.size)]

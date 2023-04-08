@@ -27,10 +27,12 @@ def adj_from_res(res: list, t: gb.types.MetaType = gb.types.BOOL) -> gb.Matrix:
     size = len(res)
     if size == 0:
         return gb.Matrix.sparse(t, 0, 0)
-    I, J = [], []
+    I, J, V = [], [], []
     for i in range(size):
         for j in range(len(res[0])):
-            if res[i][j]:
+            val = res[i][j]
+            if (val and t == gb.BOOL) or (val is not None and t == gb.types.FP64):
                 I.append(i)
                 J.append(j)
-    return gb.Matrix.from_lists(I, J, nrows=size, ncols=len(res[0]), typ=t)
+                V.append(val)
+    return gb.Matrix.from_lists(I, J, V, nrows=size, ncols=len(res[0]), typ=t)

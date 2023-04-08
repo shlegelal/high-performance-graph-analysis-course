@@ -1,0 +1,107 @@
+{
+  "test_sp_algorithms": [
+    {
+      "title": "one vertex",
+      "adj": [[0]],
+      "expected": [[0]]
+    },
+    {
+      "title": "one loop",
+      "adj": [[1]],
+      "expected": [[1]]
+    },
+    {
+      "title": "single edge",
+      "adj": [
+        [0, 1],
+        [null, 0]
+      ],
+      "expected": [
+        [0, 1],
+        [null, 0]
+      ]
+    },
+    {
+      "title": "two loops",
+      "adj": [
+        [0, 1, null],
+        [1, 0, 1],
+        [null, 1, 0]
+      ],
+      "expected": [
+        [0, 1, 2],
+        [1, 0, 1],
+        [2, 1, 0]
+      ]
+    },
+    {
+      "title": "clique",
+      "adj": [
+        [1, 1, 1, 1],
+        [1, 1, 1, 1],
+        [1, 1, 1, 1],
+        [1, 1, 1, 1]
+      ],
+      "expected": [
+        [1, 1, 1, 1],
+        [1, 1, 1, 1],
+        [1, 1, 1, 1],
+        [1, 1, 1, 1]
+        ]
+    },
+    {
+      "title": "unreachable vertex",
+      "adj": [
+        [0, null, 1, null],
+        [1,    0, 1, null],
+        [null, null, 0, 1],
+        [1, null, null, 0]
+      ],
+      "expected": [
+        [0, null, 1, 2],
+        [1, 0, 1, 2],
+        [2, null, 0, 1],
+        [1, null, 2, 0]
+      ]
+    },
+    {
+      "title": "negative edge",
+      "adj": [
+        [0, null,   -1],
+        [null, 0, null],
+        [1,    1,    0]
+      ],
+      "expected": [
+        [0, 0, -1],
+        [null, 0, null],
+        [1, 1, 0]
+      ]
+    },
+    {
+      "title": "loop with negative edge",
+      "adj": [
+        [   0,   -1, null],
+        [null,    0,    1],
+        [   1, null,    0]
+      ],
+      "expected": [
+        [0, -1, 0],
+        [2, 0, 1],
+        [1, 0, 0]
+      ]
+    },
+    {
+      "title": "inf self loop",
+      "adj": [
+        [null,   -1, null],
+        [null,    0,    1],
+        [   1, null,    0]
+      ],
+      "expected": [
+        [1, -1, 0],
+        [2, 0, 1],
+        [1, 0, 0]
+      ]
+    }
+  ]
+}

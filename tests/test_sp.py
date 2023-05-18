@@ -1,10 +1,11 @@
 import math
 import random
 import pygraphblas as gb
+import networkx as nx
 import pytest
 
 import utils
-from project.sp import sssp, mssp, apsp
+from project.sp import sssp, mssp, apsp, dijkstra_sssp
 
 
 @pytest.mark.parametrize(
@@ -38,3 +39,20 @@ def test_sp_algorithms(adj: gb.Matrix, ssp: list):
     start = random.choice(starts)
     actual = sssp(adj, start)
     assert actual == expected[start][1]
+
+
+@pytest.mark.parametrize(
+    "graph, start, expected",
+    map(
+        lambda r: (
+            nx.node_link_graph(r["graph"], directed=True, multigraph=False),
+            r["start"],
+            {n: float(dist) for n, dist in r["expected"].items()},
+        ),
+        utils.load_res("test_dijkstra_sssp"),
+    ),
+    ids=utils.get_title("test_dijkstra_sssp"),
+)
+def test_dijkstra_sssp(graph: nx.DiGraph, start: str, expected: dict[str, float]):
+    actual = dijkstra_sssp(graph, start)
+    assert actual == expected

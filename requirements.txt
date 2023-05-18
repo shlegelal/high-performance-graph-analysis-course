@@ -1,4 +1,5 @@
 black
+boltons~=23.0.0
 networkx~=3.1
 pre-commit
 pygraphblas~=5.1.8.0

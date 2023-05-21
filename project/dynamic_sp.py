@@ -82,7 +82,7 @@ class DynamicSSSP:
                 if rhs[v] != self._dists[v]:
                     heap.add(v, priority=min(rhs[v], self._dists[v]))
                 else:
-                    if v in heap.entry_map:
+                    if v in heap._entry_map:
                         heap.remove(v)
 
     def _get_rhs(self, u: Hashable):

@@ -1,6 +1,8 @@
 import math
-from typing import Collection
+import heapq
+from typing import Collection, Hashable
 import pygraphblas as gb
+import networkx as nx
 
 from project.utils import _is_correct_input, _is_correct_adj
 
@@ -83,3 +85,32 @@ def apsp(adj: gb.Matrix) -> list[tuple[int, list[int]]]:
         (row, [dists.get(row, col, default=math.inf) for col in range(adj.ncols)])
         for row in range(adj.nrows)
     ]
+
+
+def dijkstra_sssp(graph: nx.Graph, start: Hashable) -> dict[Hashable, float]:
+    """
+    Finds single-source the shortest paths using Dijkstra's algorithm.
+    :param graph: Graph to run the algorithm on. Its edges weight is 1.
+    :param start: Start vertex of the graph.
+    :return: Dict of vertexes of the graph and lengths of the sortest path from start to the corresponding vertex,
+    or *inf* if it is unreachable.
+    """
+    if not graph.has_node(start):
+        raise ValueError(f"The graph does not contain a start vertex")
+
+    dists = {node: math.inf for node in graph.nodes}
+    dists[start] = 0
+    queue = [(0, start)]
+
+    while queue:
+        dist, node = heapq.heappop(queue)
+        if dist > dists[node]:
+            continue
+
+        for neighbor in graph.neighbors(node):
+            new_dist = dists[node] + 1
+            if new_dist < dists[neighbor]:
+                dists[neighbor] = new_dist
+                heapq.heappush(queue, (new_dist, neighbor))
+
+    return dists
